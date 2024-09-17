@@ -97,15 +97,26 @@ source "$(dirname "$(readlink -f "$0")")/Global_functions.sh"
 # Set the name of the log file to include the current date and time
 LOG="Install-Logs/install-$(date +%d-%H%M%S)_hypr-pkgs.log"
 
-# uninstalling conflicting packages
-printf "\n%s - Removing Mako, Dunst and rofi as it conflicts with swaync and rofi-wayland \n" "${NOTE}"
+# Uninstalling conflicting packages
+printf "\n%s - Removing Mako, Dunst and rofi as they conflict with swaync and rofi-wayland \n" "${NOTE}"
+
+# Variable to track overall success
+overall_success=true
 for PKG in "${uninstall[@]}"; do
   uninstall_package "$PKG"
   if [ $? -ne 0 ]; then
-    echo -e "${ERROR} - $PKG Uninstallation failed. Check the uninstall log."
-    exit 1
+    echo -e "${ERROR} - $PKG uninstallation failed. Check the uninstall log." 2>&1 | tee -a "$LOG"
+    overall_success=false
   fi
 done
+
+# Handle the overall success or failure
+if [ "$overall_success" = false ]; then
+  echo -e "${ERROR} Some packages failed to uninstall. Please check the uninstall log."
+else
+  echo -e "${OK} All packages were uninstalled successfully." 2>&1 | tee -a "$LOG"
+fi
+
 
 # Installation of main components
 printf "\n%s - Installing hyprland packages.... \n" "${NOTE}"
@@ -113,7 +124,7 @@ printf "\n%s - Installing hyprland packages.... \n" "${NOTE}"
 for PKG1 in "${hypr_package[@]}" "${hypr_package_2[@]}" "${copr_packages[@]}" "${Extra[@]}"; do
   install_package "$PKG1"
   if [ $? -ne 0 ]; then
-    echo -e "${ERROR} - $PKG1 Installation failed. Check the install log."
+    echo -e "${ERROR} - $PKG1 Installation failed. Check the install log." 2>&1 | tee -a "$LOG"
     exit 1
   fi
 done
