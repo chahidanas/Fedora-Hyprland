@@ -25,7 +25,7 @@ install_package() {
   local package="$1"
 
   # Checking if package is already installed
-  if sudo dnf list installed "$package" &>/dev/null; then
+  if rpm -q "$package" &>/dev/null; then
     echo -e "${OK} $package is already installed. Skipping..."
     return 0
   else
@@ -33,7 +33,7 @@ install_package() {
     echo -e "${NOTE} Installing $package ..."
     if sudo dnf install -y "$package" 2>&1 | tee -a "$LOG"; then
       # Making sure package is installed
-      if sudo dnf list installed "$package" &>/dev/null; then
+      if rpm -q "$package" &>/dev/null; then
         echo -e "\e[1A\e[K${OK} $package was installed."
         return 0
       else
@@ -54,12 +54,12 @@ uninstall_package() {
   local package="$1"
 
   # Checking if package is installed
-  if sudo dnf list installed "$package" &>/dev/null; then
+  if rpm -q "$package" &>/dev/null; then
     # Package is installed
     echo -e "${NOTE} Uninstalling $package ..."
     if sudo dnf remove -y "$package" 2>&1 | tee -a "$LOG"; then
       # Making sure package is uninstalled
-      if ! sudo dnf list installed "$package" &>/dev/null; then
+      if ! rpm -q "$package" &>/dev/null; then
         echo -e "\e[1A\e[K${OK} $package was uninstalled."
         return 0
       else
