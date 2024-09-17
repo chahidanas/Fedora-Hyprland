@@ -45,7 +45,7 @@ missing=()
 # Loop through each package
 for pkg in "${packages[@]}"; do
     # Check if the package is installed
-    if ! sudo dnf list installed "$pkg" > /dev/null 2>&1; then
+    if ! sudo rpm -q "$pkg" > /dev/null 2>&1; then
         missing+=("$pkg")
     fi
 done

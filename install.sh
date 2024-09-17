@@ -199,7 +199,7 @@ execute_script "02-Final-Check.sh"
 printf "\n%.0s" {1..1}
 
 # Check if hyprland or hyprland-git is installed
-if dnf list installed hyprland &> /dev/null || dnf list installed hyprland-git &> /dev/null; then
+if rpm -q hyprland &> /dev/null || rpm -q hyprland-git &> /dev/null; then
     printf "\n${OK} Hyprland is installed. However, some essential packages may not be installed Please see above!"
     printf "\n${CAT} Ignore this message if it states 'All essential packages are installed.'\n"
     sleep 2
