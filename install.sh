@@ -145,14 +145,10 @@ printf "\n"
 # Ensuring all in the scripts folder are made executable
 chmod +x install-scripts/*
 
-# execute pre clean up
-execute_script "01-pre-cleanup.sh"
-
 # Install hyprland packages
 execute_script "copr.sh"
 execute_script "00-hypr-pkgs.sh"
 execute_script "fonts.sh"
-#execute_script "wallust.sh" # this is manual install
 execute_script "hyprland.sh"
 execute_script "hyprland-eco.sh"
 
@@ -187,10 +183,6 @@ fi
 if [ "$rog" == "Y" ]; then
     execute_script "rog.sh"
 fi
-
-#if [ "$nwg" == "Y" ]; then
-#    execute_script "nwg-look.sh"
-#fi
 
 execute_script "InputGroup.sh"
 

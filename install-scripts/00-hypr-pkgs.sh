@@ -100,9 +100,9 @@ LOG="Install-Logs/install-$(date +%d-%H%M%S)_hypr-pkgs.log"
 # uninstalling conflicting packages
 printf "\n%s - Removing Mako, Dunst and rofi as it conflicts with swaync and rofi-wayland \n" "${NOTE}"
 for PKG in "${uninstall[@]}"; do
-  uninstall_package "$PKG" 2>&1 | tee -a "$LOG"
+  uninstall_package "$PKG"
   if [ $? -ne 0 ]; then
-    echo -e "\e[1A\e[K${ERROR} - $PKG uninstallation failed, please check the log"
+    echo -e "${ERROR} - $PKG Uninstallation failed. Check the uninstall log."
     exit 1
   fi
 done
@@ -111,9 +111,9 @@ done
 printf "\n%s - Installing hyprland packages.... \n" "${NOTE}"
 
 for PKG1 in "${hypr_package[@]}" "${hypr_package_2[@]}" "${copr_packages[@]}" "${Extra[@]}"; do
-  install_package "$PKG1" 2>&1 | tee -a "$LOG"
+  install_package "$PKG1"
   if [ $? -ne 0 ]; then
-    echo -e "\e[1A\e[K${ERROR} - $PKG1 Package installation failed, Please check the installation logs"
+    echo -e "${ERROR} - $PKG1 Installation failed. Check the install log."
     exit 1
   fi
 done
