@@ -31,7 +31,7 @@ hypr_package=(
   pipewire-alsa
   pipewire-utils
   playerctl
-  polkit-gnome
+  polkit-kde
   python3-requests
   python3-pip
   python3-pyquery
@@ -125,7 +125,6 @@ for PKG1 in "${hypr_package[@]}" "${hypr_package_2[@]}" "${copr_packages[@]}" "$
   install_package "$PKG1"
   if [ $? -ne 0 ]; then
     echo -e "${ERROR} - $PKG1 Installation failed. Check the install log." 2>&1 | tee -a "$LOG"
-    exit 1
   fi
 done
 
