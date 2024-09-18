@@ -23,6 +23,7 @@ hypr_package=(
   inxi
   kitty
   kvantum
+  mate-polkit
   nano
   network-manager-applet
   openssl
@@ -31,7 +32,6 @@ hypr_package=(
   pipewire-alsa
   pipewire-utils
   playerctl
-  polkit-kde
   python3-requests
   python3-pip
   python3-pyquery
