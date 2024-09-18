@@ -114,7 +114,7 @@ done
 if [ "$overall_success" = false ]; then
   echo -e "${ERROR} Some packages failed to uninstall. Please check the uninstall log."
 else
-  echo -e "${OK} All packages were uninstalled successfully." 2>&1 | tee -a "$LOG"
+  echo -e "${OK} All packages were uninstalled successfully."
 fi
 
 

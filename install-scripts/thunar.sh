@@ -30,7 +30,7 @@ printf "${NOTE} Installing Thunar Packages...\n"
   for THUNAR in "${thunar[@]}"; do
   install_package "$THUNAR"
   if [ $? -ne 0 ]; then
-    echo -e "${ERROR} - $THUNAR Installation failed. Check the install log."
+    echo -e "${ERROR} - $THUNAR Installation failed. Check the install log." 2>&1 | tee -a "$LOG"
     exit 1
   fi
 done

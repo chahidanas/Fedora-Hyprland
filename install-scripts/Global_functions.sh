@@ -26,7 +26,7 @@ install_package() {
 
   # Checking if package is already installed
   if rpm -q "$package" &>/dev/null; then
-    echo -e "${OK} $package is already installed. Skipping..."
+    echo -e "${OK} $package is already installed. Skipping..." 2>&1 | tee -a "$LOG"
     return 0
   else
     # Package not installed
@@ -38,12 +38,12 @@ install_package() {
         return 0
       else
         # Package installation did not succeed
-        echo -e "\e[1A\e[K${ERROR} $package failed to install :( , please check the install.log. You may need to install manually! Sorry I have tried :("
+        echo -e "\e[1A\e[K${ERROR} $package failed to install :( , please check the install.log. You may need to install manually! Sorry I have tried :(" 2>&1 | tee -a "$LOG"
         return 1
       fi
     else
       # Installation command itself failed
-      echo -e "${ERROR} An error occurred while trying to install $package. Please check the install.log for details."
+      echo -e "${ERROR} An error occurred while trying to install $package. Please check the install.log for details." 2>&1 | tee -a "$LOG"
       return 1
     fi
   fi
@@ -73,7 +73,7 @@ uninstall_package() {
       return 1
     fi
   else
-    echo -e "${WARN} $package is not installed. Skipping uninstallation."
+    echo -e "${WARN} $package is not installed. Skipping uninstallation." 2>&1 | tee -a "$LOG"
     return 0
   fi
 }
